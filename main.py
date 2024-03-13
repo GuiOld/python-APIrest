@@ -1,12 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from models import Item
 from controllers import create_item, get_all_items, update_item, delete_item, one_item
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI()
 origins = [
+    "http://localhost",
     "http://localhost:80",
-    "http://localhost:8000",
+    "http://localhost:8000",    
 ]
 
 #autorização para que outros ips acessem meu site
@@ -23,8 +25,8 @@ def add_item(item: Item):
     return create_item(item)
 
 @app.get("/items/{item_id}")
-def read_one_item(item_id: str)
-    return one_item(item_id)
+def read_one_item(item_id: int):
+   return one_item(item_id)
 
 @app.get("/items/")
 def read_items():

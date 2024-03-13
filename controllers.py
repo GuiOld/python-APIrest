@@ -3,14 +3,12 @@ from pydantic import BaseModel, ValidationError
 import uuid
 import json
 
-
 class Item(BaseModel):
     id: Optional[str] = None
     name: str
     description: Optional[str] = None
     price: float
     on_offer: bool = False
-
 
 def _load_items() -> List[Item]:
     try:                        # r modo leitura
@@ -33,13 +31,11 @@ def create_item(item: Item) -> Item:
     _save_items(items)
     return item
 
-def one_item(item_id: str) -> Items[i]:
+def one_item(index: int) -> Optional[Item]:
     items = _load_items()
-    for i, item in enumerate(items):
-        if item_id == item_id:
-            items[i] = item_id
-            return items
-    return None    
+    if 0 <= index < len(items):
+        return items[index]
+    return None     
 
 def get_all_items() -> List[Item]:
     return _load_items()
